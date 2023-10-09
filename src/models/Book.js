@@ -20,6 +20,10 @@ const bookSchema = new mongoose.Schema(
       ref: "Author",
       required: true,
     },
+    coverImage: { // Agregamos la propiedad para la imagen de portada
+      type: String, // Aquí asumimos que la imagen se almacenará como una URL
+      required: false, // Cambiamos a false si la imagen es opcional
+    },
   },
   {
     timestamps: true,
