@@ -17,7 +17,7 @@ export const createAuthor = async (req, res) => {
 //Logica para obtener todos los autores
 export const getAuthors = async (req, res) => {
   try {
-    const authors = await Author.find();
+    const authors = await Author.find().populate("books");
     res.status(200).json(authors);
   } catch (error) {
     console.log(error);
@@ -29,7 +29,7 @@ export const getAuthors = async (req, res) => {
 export const getAuthorId = async (req, res) => {
   try {
     const {id} = req.params;
-    const author = await Author.findById(id);
+    const author = await Author.findById(id).populate("books");
     if (!author) {
       res.status(404).json({ error: "El autor no existe" });
     }

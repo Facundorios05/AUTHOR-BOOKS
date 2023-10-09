@@ -17,6 +17,10 @@ const authorSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    books:[{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Book"
+    }],
   },
   {
     timestamp: true,
