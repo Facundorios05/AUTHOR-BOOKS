@@ -3,32 +3,41 @@ import Author from "../models/Author.js";
 
 //Logica para crear autor
 export const createAuthor = async (req, res) => {
+  const { name, surname, biography } = req.body;
+
   try {
-    const { name, surname, biography } = req.body;
     const newAuthor = new Author({ name, surname, biography });
     await newAuthor.save();
+
     res.status(201).json(newAuthor);
   } catch (error) {
     console.error(error);
+
     res.status(500).json({ error: "Error al agregar el autor" });
   }
 };
 
 //Logica para obtener todos los autores
 export const getAuthors = async (req, res) => {
+  const authors = await Author.find().populate("books");
+
   try {
-    const authors = await Author.find().populate("books");
+    if (!getAuthors) {
+      return res.status(404).json;
+    }
+
     res.status(200).json(authors);
   } catch (error) {
     console.log(error);
+
     res.status(500).json({ error: "Error al obtener los autores" });
   }
 };
 
 //Logica para obtener un author por id
-export const getAuthorId = async (req, res) => {
+export const getAuthorbyId = async (req, res) => {
   try {
-    const {id} = req.params;
+    const { id } = req.params;
     const author = await Author.findById(id).populate("books");
     if (!author) {
       res.status(404).json({ error: "El autor no existe" });
@@ -46,13 +55,17 @@ export const updateAuthor = async (req, res) => {
   const { name, surname, biography } = req.body;
 
   try {
-    const author = await Author.findByIdAndUpdate(id, {
-      name,
-      surname,
-      biography,
-    }, {
-      new: true
-    });
+    const author = await Author.findByIdAndUpdate(
+      id,
+      {
+        name,
+        surname,
+        biography,
+      },
+      {
+        new: true,
+      }
+    );
     if (!author) {
       res.status(404).json({ error: "El autor no existe" });
     }

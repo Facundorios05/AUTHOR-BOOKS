@@ -3,7 +3,7 @@ import {Router} from "express";
 import {
     createAuthor,
     getAuthors,
-    getAuthorId,
+    getAuthorbyId,
     updateAuthor,
     deleteAuthor
 } from '../controllers/author.controllers.js'
@@ -14,7 +14,7 @@ router.post('/author', createAuthor);
 
 router.get('/author', getAuthors);
 
-router.get('/author/:id', getAuthorId);
+router.get('/author/:id', getAuthorbyId);
 
 router.put('/author/:id', updateAuthor);
 

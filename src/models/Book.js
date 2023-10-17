@@ -1,5 +1,5 @@
 // models/book.js
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 const bookSchema = new mongoose.Schema(
   {
@@ -8,8 +8,10 @@ const bookSchema = new mongoose.Schema(
       required: true,
     },
     genre: {
-      type: String,
+      type: Schema.Types.ObjectId,
+      ref: "Genre",
       required: true,
+      
     },
     year: {
       type: Number,
